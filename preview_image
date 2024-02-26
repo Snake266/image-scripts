@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+
+import numpy as np
+from PIL import Image
+
+import argparse
+import pathlib
+
+desc_string = 'Script to preview an image or npy file as an image'
+
+parser = argparse.ArgumentParser(description=desc_string)
+
+parser.add_argument('input_file', type=pathlib.Path, nargs='?',
+                    help='Input file it can be an image or an npy file')
+
+args = parser.parse_args()
+
+# Create variable to use it later
+image = Image.Image()
+if 'npy' in args.input_file.suffix:
+    image = Image.fromarray(np.load(args.input_file))
+else: # I don't know to check that th file is the actually image
+    image = Image.open(args.input_file)
+
+image.show()

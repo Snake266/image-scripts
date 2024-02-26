@@ -6,6 +6,7 @@ At this time there are several scripts:
 - `image_to_npy` to convert image to binary numpy file
 - `npy_to_image` to convert a binary numpy file to an image (png by default)
 - `psnr_ssim_calc` to calculate *peak signal noise ratio* and *structural similarity*
+- `preview_image` to preview an image, that can regular file (may be overkill for that scenario) or an binary npy file
 
 ## Using
 
