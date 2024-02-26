@@ -1,2 +1,12 @@
 My small collection of scripts to work with images in Python.
 
+At this time there are several scripts:
+
+- `apply_medfilt` to apply median filter (scipy.signal.medfilt) on an image
+- `image_to_npy` to convert image to binary numpy file
+- `npy_to_image` to convert a binary numpy file to an image (png by default)
+- `psnr_ssim_calc` to calculate *peak signal noise ratio* and *structural similarity*
+
+## Using
+
+You can use `-h` or `--help` to get help message for each script.
