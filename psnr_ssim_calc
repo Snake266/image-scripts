@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+
+import numpy as np
+from matplotlib import pyplot as plt
+from skimage.metrics import peak_signal_noise_ratio, structural_similarity
+from PIL import Image
+
+import argparse
+import pathlib
+
+desc_string = 'Script to calculate PSNR and SSIM' 
+
+parser = argparse.ArgumentParser(description=desc_string)
+
+parser.add_argument('-g', '--groundtruth', dest='groundtruth_file',
+                    type=pathlib.Path, required=True,
+                    help='Groundtruth image')
+parser.add_argument('-d', '--denoised', dest='denoised_file',
+                    type=pathlib.Path, required=True,
+                    help='Denoised image')
+
+args = parser.parse_args()
+
+ground_array_data = np.asarray(Image.open(str(args.groundtruth_file.absolute())))
+denoised_array_data = np.asarray(Image.open(str(args.denoised_file.absolute())))
+
+print('PSNR: ', peak_signal_noise_ratio(ground_array_data, denoised_array_data))
+print('SSIM:', structural_similarity(ground_array_data, denoised_array_data))

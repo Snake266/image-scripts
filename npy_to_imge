@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+
+import numpy as np
+from PIL import Image
+
+import argparse
+import pathlib
+
+desc_string = 'Script to convert npy binary file to an image'
+
+parser = argparse.ArgumentParser(description=desc_string)
+
+parser.add_argument('npy_file', type=pathlib.Path, nargs='?',
+                    help='npy binary file')
+parser.add_argument('-o', '--out', dest='destanation_file',
+                    type=pathlib.Path, required=False, nargs='?',
+                    help='Output image file destanation')
+
+args = parser.parse_args()
+
+if args.destanation_file is None:
+    args.destanation_file = pathlib.Path('./output.png')
+
+
+if not args.npy_file.exists():
+    print('Error: input file does not exists')
+    exit()
+
+npy_data = np.load(args.npy_file.absolute())
+img = Image.fromarray(npy_data)
+img.save(args.destanation_file)

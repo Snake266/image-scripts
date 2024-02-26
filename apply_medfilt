@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+from scipy.signal import medfilt
+from PIL import Image
+import numpy as np
+
+import argparse
+import pathlib
+
+desc_string = 'Apply a median filter on an image' 
+
+parser = argparse.ArgumentParser(description=desc_string)
+
+parser.add_argument('image_file', type=pathlib.Path, nargs='?',
+                    help='Image file path')
+parser.add_argument
+parser.add_argument('-o', '--out', dest='destanation_file',
+                    type=pathlib.Path, required=False, nargs='?',
+                    help='Output npy file destanation')
+
+args = parser.parse_args()
+
+if args.destanation_file is None:
+    args.destanation_file = pathlib.Path('./output.png')
+
+if not args.image_file.exists():
+    print('Error: input file does not exists')
+    exit()
+
+input = np.asarray(Image.open(args.image_file))
+denoised_input = medfilt(input)
+img_denoised_input = Image.fromarray(denoised_input)
+img_denoised_input.save(args.destanation_file)
